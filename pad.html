@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        body {
+            margin: 0;
+            margin-right: 10px;
+            padding: 0;
+            overflow: hidden;
+        }
+        textarea {
+            margin: auto;
+            padding: 15px;
+            resize: none;
+            overflow:auto;
+            width: 98vw;
+            height: 100vh;
+            border: 0;
+            outline: none;
+            font-family: Arial, Helvetica, Tahoma, Verdana;
+	        font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <textarea></textarea>
+    <script>
+        const textarea = document.getElementsByTagName('textarea')[0];
+        setInterval(() => {
+            fetch('/recovery/'+pathName, { method: 'GET' })
+            .then(json => { 
+                json.json()
+                .then(res => {
+                    textarea.value = res.text;
+                })
+            });
+        }, 2000)
+        let pathName = document.location.pathname.replace('/','');
+        document.title = pathName + ' | Dontpad';
+
+        textarea.addEventListener('keyup', () => {
+            fetch('/send/'+pathName, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Cache-Control": "no-cache",
+                },
+                body: `text=${textarea.value}`
+            })
+            .then(res => {
+                console.log(res.text());
+            });
+        })
+    </script>
+</body>
+</html>
