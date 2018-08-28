@@ -4,11 +4,6 @@ var app = express();
 
 // *** Code examples below go here! ***
 
-// example.com
-app.get('/', function(req, res) {
-    res.send('Homepage');
-});
-
 var router = express.Router();
 
 //api specific routes
@@ -23,4 +18,10 @@ router.get('/users', function(req, res) {
 });
 
 app.use(subdomain('stg', router));
+
+// example.com
+app.get('/', function(req, res) {
+    res.send('Homepage');
+});
+
 app.listen(80);
