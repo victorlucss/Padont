@@ -22,5 +22,5 @@ router.get('/users', function(req, res) {
     ]);
 });
 
-app.use(subdomain('api', router));
+app.use(subdomain('stg', router));
 app.listen(80);
