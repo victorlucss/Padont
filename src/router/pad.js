@@ -7,8 +7,12 @@ firebase.initializeApp(config.firebase);
 
 let router = express.Router(); // criação de rota da nota
 
+router.get('/', (req,res) => {
+    res.sendFile(path.resolve('../Dontpad/src/html/inicio.html')); 
+})
+
 router.get('/:pad', (req,res) => {
-    res.sendFile(path.resolve('src/pad.html'));
+    res.sendFile(path.resolve('../Dontpad/src/html/pad.html'));
 })
 
 router.post('/send/:pad', (req,res) => {
@@ -25,3 +29,5 @@ router.get('/recovery/:pad', (req,res) => {
 })
 
 module.exports = router;
+
+// Remover ../Dontpad/ caso rodar em um servidor interno da pasta
