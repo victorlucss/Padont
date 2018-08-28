@@ -1,4 +1,3 @@
-const express = require('express');
 var subdomain = require('express-subdomain');
 var express = require('express');
 var app = express();
