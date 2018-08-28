@@ -31,7 +31,7 @@
         const textarea = document.getElementsByTagName('textarea')[0];
         setInterval(() => {
             fetch('/recovery/'+pathName, { method: 'GET' })
-            .then(json => { 
+            .then(json => {
                 json.json()
                 .then(res => {
                     textarea.value = res.text;
