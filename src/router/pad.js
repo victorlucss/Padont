@@ -1,9 +1,6 @@
 const express = require('express');
-const firebase = require('firebase');
-const config = require('../config/firebase.config'); // arquivo com exportação de configurações do firebase
 const path = require('path');
-
-firebase.initializeApp(config.firebase);
+const fs = require('fs');
 
 let router = express.Router(); // criação de rota da nota
 
@@ -16,16 +13,20 @@ router.get('/:pad', (req,res) => {
 })
 
 router.post('/send/:pad', (req,res) => {
-    firebase.database().ref('pads').child(req.params.pad).set({
+    let json = {
         text: req.body.text
-    })
-    res.send('deubom');
+    }
+    json = JSON.stringify(json);
+
+    fs.writeFile('./src/pads/'+req.params.pad+'.json', json, (err) => {
+        if (!err) {
+            res.send('deubom');
+        }
+    });
 });
 
 router.get('/recovery/:pad', (req,res) => {
-    firebase.database().ref('pads').child(req.params.pad).once('value', snapshot => {
-        if(snapshot.val()) res.send({text: snapshot.val().text})
-    });
+    res.send(JSON.parse(fs.readFileSync('./src/pads/'+req.params.pad+'.json', 'utf8')));
 })
 
 module.exports = router;
