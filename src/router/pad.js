@@ -16,6 +16,7 @@ router.post('/send/:pad', (req,res) => {
     let json = {
         text: req.body.text
     }
+
     json = JSON.stringify(json);
 
     fs.writeFile('./src/pads/'+req.params.pad+'.json', json, (err) => {
@@ -26,7 +27,15 @@ router.post('/send/:pad', (req,res) => {
 });
 
 router.get('/recovery/:pad', (req,res) => {
-    res.send(JSON.parse(fs.readFileSync('./src/pads/'+req.params.pad+'.json', 'utf8')));
+    try {
+        res.send(JSON.parse(fs.readFileSync('./src/pads/'+req.params.pad+'.json', 'utf8')));
+    } catch(e) {
+        fs.writeFile('./src/pads/'+req.params.pad+'.json', JSON.stringify({ text: ''}), (err) => {
+            if (!err) {
+                res.send('deubom');
+            }
+        });
+    }
 })
 
 module.exports = router;
