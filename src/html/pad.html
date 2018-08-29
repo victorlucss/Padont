@@ -28,8 +28,24 @@
 <body>
     <textarea></textarea>
     <script>
+        // Muda o título para ":pad | Dontpad"
+
+        let pathName = document.location.pathname.replace('/','');
+        document.title = pathName + ' | Dontpad';
+
+        // Pega o valor da textarea
         const textarea = document.getElementsByTagName('textarea')[0];
+        let mudado = false;
+
         setInterval(() => {
+            if(mudado){
+                atualiza();
+            }else{
+                salva();
+            }
+        }, 2000)
+
+        function atualiza() {
             fetch('/recovery/'+pathName, { method: 'GET' })
             .then(json => {
                 json.json()
@@ -37,11 +53,10 @@
                     textarea.value = res.text;
                 })
             });
-        }, 2000)
-        let pathName = document.location.pathname.replace('/','');
-        document.title = pathName + ' | Dontpad';
+        }
 
-        textarea.addEventListener('keyup', () => {
+        function salva() {
+            mudado = false;
             fetch('/send/'+pathName, {
                 method: 'POST',
                 headers: {
@@ -53,7 +68,11 @@
             .then(res => {
                 console.log(res.text());
             });
-        })
+        }
+
+        textarea.addEventListener('keyup', () => {
+            mudado = true;
+        });
     </script>
 </body>
 </html>
