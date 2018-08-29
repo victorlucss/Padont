@@ -5,11 +5,11 @@ const fs = require('fs');
 let router = express.Router(); // criação de rota da nota
 
 router.get('/', (req,res) => {
-    res.sendFile(path.resolve('/Dontpad/src/html/inicio.html')); 
+    res.sendFile(path.resolve('./src/html/inicio.html')); 
 })
 
 router.get('/:pad', (req,res) => {
-    res.sendFile(path.resolve('/Dontpad/src/html/pad.html'));
+    res.sendFile(path.resolve('./src/html/pad.html'));
 })
 
 router.post('/send/:pad', (req,res) => {
@@ -19,7 +19,7 @@ router.post('/send/:pad', (req,res) => {
 
     json = JSON.stringify(json);
 
-    fs.writeFile('/Dontpad/src/pads/'+req.params.pad+'.json', json, (err) => {
+    fs.writeFile('./src/pads/'+req.params.pad+'.json', json, (err) => {
         if (!err) {
             res.send('deubom');
         }
@@ -28,9 +28,9 @@ router.post('/send/:pad', (req,res) => {
 
 router.get('/recovery/:pad', (req,res) => {
     try {
-        res.send(JSON.parse(fs.readFileSync('/Dontpad/src/pads/'+req.params.pad+'.json', 'utf8')));
+        res.send(JSON.parse(fs.readFileSync('./src/pads/'+req.params.pad+'.json', 'utf8')));
     } catch(e) {
-        fs.writeFile('/Dontpad/src/pads/'+req.params.pad+'.json', JSON.stringify({ text: ''}), (err) => {
+        fs.writeFile('./src/pads/'+req.params.pad+'.json', JSON.stringify({ text: ''}), (err) => {
             if (!err) {
                 res.send('deubom');
             }
