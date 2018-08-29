@@ -56,7 +56,6 @@
         }
 
         function salva() {
-            mudado = false;
             fetch('/send/'+pathName, {
                 method: 'POST',
                 headers: {
@@ -66,6 +65,7 @@
                 body: `text=${textarea.value}`
             })
             .then(res => {
+                mudado = false;
                 console.log(res.text());
             });
         }
