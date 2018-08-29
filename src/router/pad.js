@@ -8,11 +8,11 @@ firebase.initializeApp(config.firebase);
 let router = express.Router(); // criação de rota da nota
 
 router.get('/', (req,res) => {
-    res.sendFile(path.resolve('../Dontpad/src/html/inicio.html')); 
+    res.sendFile(path.resolve('./src/html/inicio.html')); 
 })
 
 router.get('/:pad', (req,res) => {
-    res.sendFile(path.resolve('../Dontpad/src/html/pad.html'));
+    res.sendFile(path.resolve('./src/html/pad.html'));
 })
 
 router.post('/send/:pad', (req,res) => {

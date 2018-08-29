@@ -8,7 +8,4 @@ app.use(bodyParser.urlencoded({ extended: true}));
 
 app.use('/', padRouter); // Usa a rota
 
-app.get('/', (req,res) => {
-    res.sendFile(__dirname+'/index.html');
-})
 app.listen(5368);
