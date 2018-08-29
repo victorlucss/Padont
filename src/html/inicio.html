@@ -26,6 +26,12 @@
             transform: translate(-50%, -50%);
         }
 
+        @media only screen and (max-width: 450px){
+            .center {
+                width: 80%;
+            }
+        }
+
         input, button {
             border: 1px solid #999999;
             padding: 5px;
@@ -36,7 +42,7 @@
         window.onload = () => {
             document.getElementById('ir').addEventListener('click', () => {
                 let input = document.getElementsByTagName('input')[0].value;
-                window.location.href = `http://dontpad.victorlucss.com/${input}`;
+                window.location.href = `https://dontpad.victorlucss.com/${input}`;
             })
         }
     </script>
@@ -46,9 +52,9 @@
         <h1>Dontpad | Reprodução</h1>
         <p>Este sistema é uma reprodução do site <a href="http://dontpad.com">http://dontpad.com</a> utilizando NodeJS, Express, HTML e CSS.</p>
         <p>
-            <strong>http://dontpad.victorlucss.com/</strong> <input type="text"> <button id="ir">Ir!</button>
+            <strong>https://dontpad.victorlucss.com/</strong> <input type="text"> <button id="ir">Ir!</button>
         </p>
-        <p>Feito por <a href="http://victorlucss.com/">Victor Lucas</a></p>
+        <p>Feito por <a href="https://victorlucss.com/">Victor Lucas</a></p>
     </div>
 </body>
 </html>
