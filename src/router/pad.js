@@ -25,6 +25,8 @@ router.post('/send/:pad', (req,res) => {
     fs.writeFile(`${CLOUD}src/pads/${req.params.pad}.json`, json, (err) => {
         if (!err) {
             res.send('deubom');
+        }else{
+            res.send(err)
         }
     });
 });
@@ -36,6 +38,8 @@ router.get('/recovery/:pad', (req,res) => {
         fs.writeFile(`${CLOUD}src/pads/${req.params.pad}.json`, JSON.stringify({ text: ''}), (err) => {
             if (!err) {
                 res.send('deubom');
+            }else{
+                res.send(err)
             }
         });
     }
