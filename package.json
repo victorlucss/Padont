@@ -12,8 +12,6 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "express-subdomain": "^1.0.5",
-    "firebase": "^5.4.1",
-    "fs": "0.0.1-security"
   },
   "devDependencies": {
     "nodemon": "^1.18.3"
