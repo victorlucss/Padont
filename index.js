@@ -8,27 +8,24 @@ let router = express.Router();
 // const padRouter = require('./src/router/pad') // requer a rota
 
 let app = express();
-app.use(cors())
-app.use(bodyParser.urlencoded({ extended: true})); 
+app.use(cors());
+app.use(express.json());
 
-router.post('/:pad', (req, res) => {
-    let json = {
-        text: req.body.text
-    }
-
-    json = JSON.stringify(json);
-
-    fs.writeFile(`${CLOUD}src/pads/${req.params.pad}.json`, json, (err) => {
+router.put('/api/:pad', (req, res) => {
+    const { params } = req;
+    console.log(`Updating/creating ${params.pad}`)
+    fs.writeFile(`./public/pads/${params.pad}.json`, JSON.stringify(req.body), (err) => {
         if (!err) {
-            res.send('deubom');
+            res.send(req.body);
         }else{
             res.send(err)
         }
     });
 });
 
-router.get('/:pad', (req, res) => {
+router.get('/api/:pad', (req, res) => {
     const { params } = req;
+    console.log(`Returning/creating ${params.pad}`)
 
     if (!params.pad) {
         res.send();
@@ -46,7 +43,7 @@ router.get('/:pad', (req, res) => {
     } catch(e) {
         fs.writeFile(`./public/pads/${req.params.pad}.json`, JSON.stringify(defaultContent), (err) => {
             if (!err) {
-                res.send(defaultContent);
+                res.status(201).send(defaultContent);
             }else{
                 res.send(err)
             }
@@ -55,6 +52,7 @@ router.get('/:pad', (req, res) => {
 })
 
 
-app.use('/', router); // Usa a rota
+app.use('/', router);
 
 app.listen(8081);
+console.log('Listening on port 8081');
